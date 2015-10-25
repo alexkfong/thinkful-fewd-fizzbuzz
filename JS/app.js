@@ -1,35 +1,52 @@
-// JavaScript for Fizzbuzz algorithm by Alex K. Fong
+// JavaScript for Fizzbuzz Refactor algorithm by Alex K. Fong
 
 $(document).ready( function() {
 	
-	//start at number 1
-	var count = 1;	
+	var count;
 
-	//Break once loop has run 15 times
-	while (count <= 15) {
+	//Keep prompting until a valid number is given
+	while (!parseInt(count, 10)) {
+		count = prompt("Enter a number");
+	}
 
-		//Clear output
-		var output = '';
+	//run fizzbuzz and print its output
+	printer( fizzbuzz(count) );
+
+});
+
+// A more efficient fizzbuzz algorithm.
+// Instead of printing in the loop, we create one output string
+// which is returned, meaning we only manipulate the DOM once. 
+function fizzbuzz(count) {
+	
+	var output = '';
+
+	for(i=1; i <= count; i++) {
 		
 		//Is divisible by three
-		if((count % 3) == 0) {
-			output = "Fizz";
+		if((i % 3) == 0) {
+			output += "Fizz";
 		}
 
 		//is divisible by five
-		if((count % 5) == 0) {
-			output = output + "Buzz";
+		if((i % 5) == 0) {
+			output += "Buzz";
 		}
 
 		//not divisible by either three or five
-		if(((count % 3) && (count % 5)) != 0 ) {
-			output = count;
+		if(((i % 3) && (i % 5)) != 0 ) {
+			output += i;
 		}
 
-		//display output
-		$('body').append("<p>" + output + "</p>");
-		
-		//increment counter
-		count ++;
+		output += "</p><p>";
 	}
-});
+
+	return output;
+}
+
+// Prints the inputted string
+function printer(input) {
+
+	$('body').append("<p>" + input + "</p>");
+
+};
